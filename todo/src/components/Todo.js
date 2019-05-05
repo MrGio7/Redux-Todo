@@ -1,23 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { add } from '../actions';
 
 class Todo extends Component{
+    state = {
+        newTodo: ''
+    }
+
+    handleChanges = e => {
+        this.setState({ newTodo: e.target.value });
+    }
+
+    updateList = e => {
+        e.preventDefault();
+        this.props.add(this.state.newTodo);
+    }
 
     render() {
+        console.log(this.state.newTodo)
         return(
         <div className='todo-list'>
 
             <form>
                 <input 
-                    name='todoText'
+                    name='newTodo'
                     type="text"
                     placeholder="...todo"
+                    value={this.state.newTodo}
+                    onChange={this.handleChanges}
                 />
 
-                <button >Add </button>
+                <button onClick={this.updateList} >Add </button>
             </form>
 
-            <h4>{this.props.todo}</h4>
+            <div>{this.props.todo}</div>
 
         </div>
         )
@@ -25,9 +41,12 @@ class Todo extends Component{
 };
 
 const mapStateToProps = (state) => {
+
     return{
-        todo: state.todo
+        todo: state.todo.map(item => {
+            return <li key={item.id}>{item.task}</li>
+        })
     }
 }
 
-export default connect(mapStateToProps, {})(Todo)
+export default connect(mapStateToProps, {add})(Todo)

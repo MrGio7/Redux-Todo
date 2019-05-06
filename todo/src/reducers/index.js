@@ -1,17 +1,19 @@
-import { ADD } from '../actions'
+import { ADD } from '../actions';
+import { TOGGLE_TASK } from '../actions';
 
 const initialState = {
     todo: [
         {
           task: 'Organize Garage',
-          id: 1528817077286
+          completed: false
         },
         {
           task: 'Bake Cookies',
-          id: 1528817084358
+          completed: false
         }
       ]
 }
+
 
 export default (state=initialState, action) => {
     switch (action.type) {
@@ -22,6 +24,20 @@ export default (state=initialState, action) => {
                     ...state.todo,
                     action.payload
                 ]
+            }
+
+        case TOGGLE_TASK:
+            return {
+                ...state,
+                todo: state.todo.map((todo, index) => {
+                    if(index === action.payload) {
+                      return{
+                        ...todo,
+                        completed: !todo.completed
+                      };
+                    }
+                    return todo;
+                  })
             }
 
         default:

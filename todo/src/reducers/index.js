@@ -1,5 +1,6 @@
 import { ADD } from '../actions';
 import { TOGGLE_TASK } from '../actions';
+import { CLEAR_COMPLETED } from '../actions';
 
 const initialState = {
     todo: [
@@ -38,6 +39,12 @@ export default (state=initialState, action) => {
                     }
                     return todo;
                   })
+            }
+
+        case CLEAR_COMPLETED:
+            return{
+                ...state,
+                todo: state.todo.filter(task => !task.completed)
             }
 
         default:

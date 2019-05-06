@@ -1,5 +1,6 @@
 export const ADD = 'ADD';
 export const TOGGLE_TASK = 'TOGGLE_TASK';
+export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
 
 export const add = (newTask) => {
     return{
@@ -13,9 +14,15 @@ export const add = (newTask) => {
 }
 
 export const toggleTask = index => {
-    console.log(index)
     return{
         type: TOGGLE_TASK,
         payload: index
+    }
+}
+
+export const clearCompleted = (id) => {
+    console.log(id)
+    return{
+        type: CLEAR_COMPLETED,
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { add } from '../actions';
 import { toggleTask } from '../actions';
+import { clearCompleted } from '../actions';
 
 class Todo extends Component{
     state = {
@@ -24,8 +25,7 @@ class Todo extends Component{
 
     removeSelected = e => {
         e.preventDefault();
-
-
+        this.props.clearCompleted()
     }
 
     render() {
@@ -44,7 +44,7 @@ class Todo extends Component{
 
                 <button onClick={this.updateList} >Add </button>
 
-                <button>Clear</button>
+                <button onClick={this.removeSelected}>Clear</button>
             </form>
 
             <ul>
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {add, toggleTask})(Todo)
+export default connect(mapStateToProps, {add, toggleTask, clearCompleted})(Todo)
